@@ -38,7 +38,7 @@ class Ticket
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
+     */ 
     private $ticketDate;
 
     /**
@@ -47,9 +47,14 @@ class Ticket
     private $notification;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Vehicle", inversedBy="tickets")
+     * @ORM\Column(type="integer")
      */
-    private $vehicle;
+    private $vehicleId;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $vehicleCode;
 
     public function getId(): ?int
     {
@@ -128,14 +133,26 @@ class Ticket
         return $this;
     }
 
-    public function getVehicle(): ?Vehicle
+    public function getVehicleId(): ?int
     {
-        return $this->vehicle;
+        return $this->vehicleId;
     }
 
-    public function setVehicle(?Vehicle $vehicle): self
+    public function setVehicleId(int $vehicleId): self
     {
-        $this->vehicle = $vehicle;
+        $this->vehicleId = $vehicleId;
+
+        return $this;
+    }
+
+    public function getVehicleCode(): ?string
+    {
+        return $this->vehicleCode;
+    }
+
+    public function setVehicleCode(string $vehicleCode): self
+    {
+        $this->vehicleCode = $vehicleCode;
 
         return $this;
     }

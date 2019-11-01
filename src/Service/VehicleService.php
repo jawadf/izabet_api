@@ -3,44 +3,21 @@
 namespace App\Service; 
 
 use App\Entity\Vehicle;
-use App\Entity\UsersAndroid;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 
+
 class VehicleService
 {
-
+    
     private $vehicleRepository;
-
-    private $usersAndroidRepository;
-
+    
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager) {
         $this->vehicleRepository = $entityManager->getRepository(Vehicle::class);
-        $this->usersAndroidRepository = $entityManager->getRepository(UsersAndroid::class);
         $this->entityManager = $entityManager;
     }
-
-    /**
-     *  GENERAL CHECKER (For some URL parameters)
-    */
-    public function checker(string $deviceId, int $type, int $salt) 
-    {
-        if($type == 2) {
-            $user = $this->usersAndroidRepository->findOneBy([
-                'deviceId' => $deviceId,
-                'salt' => $salt
-            ]);
-            
-            if ($user) {
-                return array('status' => true, 'user' => $user );
-            } else {
-                return array( 'status' => false );
-            }
-        }
-    }
-
 
     /**
      * ADD VEHICLE
@@ -50,7 +27,7 @@ class VehicleService
      * @param vehicleName
      * 
      * @return success
-    */
+     */
     public function addVehicle(int $vehicleNumber, string $vehicleCode, string $vehicleName, int $type, UsersAndroid $user)
     {
         $return = array();
@@ -86,23 +63,56 @@ class VehicleService
              return $return;
          }
 
-            echo json_encode($return);
+         echo json_encode($return);
     }
 
-    public function getUserVehicles(): ?array
+
+    /**
+     * GET VEHICLES OF A SPECIFIC USER
+     * 
+     */
+    public function getUserVehicles($user, $type)
     {
-        return $this->vehicleRepository->findAll();
+        $result = $this->vehicleRepository->findBy(
+            ['user' => $user]
+            // To do: add Type
+        );
+
+        $vehicles = array();
+        foreach ($result as $oneVehicle) {
+            $vehicles[] = [
+               'id' => $oneVehicle->getId(),
+               'status' => $oneVehicle->getStatus(),
+               'create_date' => $oneVehicle->getCreateDate()->format('Y-m-d H:i:s'),
+               'vehicle_id' => $oneVehicle->getVehicleId(),
+               'vehicle_code' => $oneVehicle->getVehicleCode(),
+               'vehicle_name' => $oneVehicle->getVehicleName(),
+               'user_id' => $oneVehicle->getUser()->getId(),
+               'user_os' => $oneVehicle->getUserOs(),
+            ];
+        }
+
+        echo json_encode($vehicles);
     }
 
+    /**
+     * DELETE VEHICLE
+     * 
+     */
     public function deleteVehicle(int $vehicleId): void
     {
         $vehicle = $this->vehicleRepository->find($vehicleId);
+        
+        $return = array();
         if ($vehicle) {
             $this->entityManager->remove($vehicle);
             $this->entityManager->flush();
+            $return = ['isDeleted' => 1];
         } else if (!$vehicle) {
-            throw new EntityNotFoundException('Vehicle with id '.$vehicleId.' does not exist!');
+            $return = ['isDeleted' => 0, 'message' => 'Vehicle with id '.$vehicleId.' does not exist!'];
         }
+
+        echo json_encode($return);
     }
 
 }

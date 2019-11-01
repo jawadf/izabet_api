@@ -126,7 +126,7 @@ class Vehicle
         $this->vehicleName = $vehicleName;
 
         return $this;
-    }
+    } 
 
     public function getUser(): ?UsersAndroid
     {
