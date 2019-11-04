@@ -10,7 +10,7 @@ class TicketService
 {
 
     private $ticketRepository;
-    
+
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager) {
@@ -19,7 +19,7 @@ class TicketService
     }
 
     public function checkViolations(int $vehicleNumber, string $vehicleCode) {
-        
+
         $return = array();
         if (strlen($vehicleNumber) > 2 and $vehicleCode) {
             $currentVehicle = [
