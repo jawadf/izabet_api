@@ -32,12 +32,11 @@ class VehicleController extends FOSRestController
     {
         $deviceId = $request->get('device_id');
         $type = $request->get('type');
-        $salt = $request->get('salt');
         $vehicleNumber = $request->get('vehicle_number');
         $vehicleCode = $request->get('vehicle_code');
         $vehicleName = $request->get('vehicle_name');
 
-        $checker = $this->checkerService->checker($deviceId, $type, $salt);
+        $checker = $this->checkerService->checker($deviceId, $type);
 
         $vehicle = array();
         if ($checker['status']) {
@@ -59,9 +58,8 @@ class VehicleController extends FOSRestController
     {
         $deviceId = $request->get('device_id');
         $type = $request->get('type');
-        $salt = $request->get('salt');
 
-        $checker = $this->checkerService->checker($deviceId, $type, $salt);
+        $checker = $this->checkerService->checker($deviceId, $type);
 
         $vehicles = array();
         if ($checker['status']) {
@@ -81,10 +79,9 @@ class VehicleController extends FOSRestController
     {
         $deviceId = $request->get('device_id');
         $type = $request->get('type');
-        $salt = $request->get('salt');
         $vehicleId = $request->get('id');
 
-        $checker = $this->checkerService->checker($deviceId, $type, $salt);
+        $checker = $this->checkerService->checker($deviceId, $type);
 
         $result = array();
         if ($checker['status']) {

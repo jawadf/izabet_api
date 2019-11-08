@@ -23,7 +23,7 @@ class TicketController extends FOSRestController
         $this->ticketService = $ticketService;
         $this->checkerService = $checkerService;
     }
-
+    
     /**
      * Check for tickets
      * @Rest\Get("/tickets")
@@ -32,11 +32,10 @@ class TicketController extends FOSRestController
     {
         $deviceId = $request->get('device_id');
         $type = $request->get('type');
-        $salt = $request->get('salt');
         $vehicleNumber = $request->get('vehicle_number');
         $vehicleCode = $request->get('vehicle_code');
 
-        $checker = $this->checkerService->checker($deviceId, $type, $salt);
+        $checker = $this->checkerService->checker($deviceId, $type);
 
         $results = array();
         if ($checker['status']) {

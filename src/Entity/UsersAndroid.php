@@ -25,11 +25,11 @@ class UsersAndroid
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     */
+     */ 
     private $createDate;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $token;
 

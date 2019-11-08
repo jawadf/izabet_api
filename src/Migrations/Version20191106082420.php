@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191101124230 extends AbstractMigration
+final class Version20191106082420 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20191101124230 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE ticket ADD vehicle_code VARCHAR(10) NOT NULL');
+        $this->addSql('ALTER TABLE users_and ADD create_date DATETIME DEFAULT NULL, ADD device_id VARCHAR(255) NOT NULL, ADD device_name VARCHAR(255) DEFAULT NULL, ADD salt INT DEFAULT NULL, ADD active INT DEFAULT NULL, ADD notification INT DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +30,6 @@ final class Version20191101124230 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE ticket DROP vehicle_code');
+        $this->addSql('ALTER TABLE users_and DROP create_date, DROP device_id, DROP device_name, DROP salt, DROP active, DROP notification');
     }
 }

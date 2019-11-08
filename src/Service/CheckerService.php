@@ -2,7 +2,7 @@
 
 namespace App\Service; 
 
-use App\Entity\UsersAndroid;
+use App\Entity\UsersAnd;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CheckerService
@@ -11,18 +11,17 @@ class CheckerService
     private $usersAndroidRepository;
     
     public function __construct(EntityManagerInterface $entityManager) {
-        $this->usersAndroidRepository = $entityManager->getRepository(UsersAndroid::class);
+        $this->usersAndroidRepository = $entityManager->getRepository(UsersAnd::class);
     }
 
     /**
-     *  GENERAL CHECKER (For some URL parameters)
+     *  Checks if there's a User with this device id
      */
-    public function checker(string $deviceId, int $type, int $salt) 
+    public function checker(string $deviceId, int $type) 
     {
         if($type == 2) {
             $user = $this->usersAndroidRepository->findOneBy([
-                'deviceId' => $deviceId,
-                'salt' => $salt
+                'deviceId' => $deviceId
             ]);
             
             if ($user) {

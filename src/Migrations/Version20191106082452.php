@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191031091700 extends AbstractMigration
+final class Version20191106082452 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,7 @@ final class Version20191031091700 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE vehicle ADD user_id_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE vehicle ADD CONSTRAINT FK_1B80E4869D86650F FOREIGN KEY (user_id_id) REFERENCES users_android (id)');
-        $this->addSql('CREATE INDEX IDX_1B80E4869D86650F ON vehicle (user_id_id)');
+        $this->addSql('ALTER TABLE users_and ADD update_date DATETIME DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +30,6 @@ final class Version20191031091700 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE vehicle DROP FOREIGN KEY FK_1B80E4869D86650F');
-        $this->addSql('DROP INDEX IDX_1B80E4869D86650F ON vehicle');
-        $this->addSql('ALTER TABLE vehicle DROP user_id_id');
+        $this->addSql('ALTER TABLE users_and DROP update_date');
     }
 }
