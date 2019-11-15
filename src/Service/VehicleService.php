@@ -3,7 +3,7 @@
 namespace App\Service; 
 
 use App\Entity\Vehicle;
-use App\Entity\UsersAndroid;
+use App\Entity\UsersAnd;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 
@@ -29,7 +29,7 @@ class VehicleService
      * 
      * @return success
      */
-    public function addVehicle(int $vehicleNumber, string $vehicleCode, string $vehicleName, int $type, UsersAndroid $user)
+    public function addVehicle(int $vehicleNumber, string $vehicleCode, string $vehicleName, int $type, UsersAnd $user)
     {
         $return = array();
          if (strlen($vehicleNumber) > 2 and $vehicleCode and $vehicleName) {

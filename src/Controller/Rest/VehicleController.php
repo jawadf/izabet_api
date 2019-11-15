@@ -30,13 +30,13 @@ class VehicleController extends FOSRestController
      */
     public function addVehicle(Request $request): View
     {
-        $deviceId = $request->get('device_id');
+        $id = $request->get('user_id');
         $type = $request->get('type');
         $vehicleNumber = $request->get('vehicle_number');
         $vehicleCode = $request->get('vehicle_code');
         $vehicleName = $request->get('vehicle_name');
 
-        $checker = $this->checkerService->checker($deviceId, $type);
+        $checker = $this->checkerService->checker($id, $type);
 
         $vehicle = array();
         if ($checker['status']) {
@@ -56,12 +56,12 @@ class VehicleController extends FOSRestController
      */
     public function getUserVehicles(Request $request): View
     {
-        $deviceId = $request->get('device_id');
+        $id = $request->get('user_id');
         $type = $request->get('type');
 
-        $checker = $this->checkerService->checker($deviceId, $type);
+        $checker = $this->checkerService->checker($id, $type);
 
-        $vehicles = array();
+        $vehicles = array(); 
         if ($checker['status']) {
             $user = $checker['user'];
             $vehicles = $this->vehicleService->getUserVehicles($user, $type);
@@ -77,11 +77,11 @@ class VehicleController extends FOSRestController
      */
     public function deleteVehicle(Request $request): View
     {
-        $deviceId = $request->get('device_id');
+        $id = $request->get('user_id');
         $type = $request->get('type');
         $vehicleId = $request->get('id');
 
-        $checker = $this->checkerService->checker($deviceId, $type);
+        $checker = $this->checkerService->checker($id, $type);
 
         $result = array();
         if ($checker['status']) {

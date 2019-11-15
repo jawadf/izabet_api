@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service; 
+namespace App\Service;  
 
 use App\Entity\UsersAnd;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,11 +17,11 @@ class CheckerService
     /**
      *  Checks if there's a User with this device id
      */
-    public function checker(string $deviceId, int $type) 
+    public function checker(int $id, int $type) 
     {
         if($type == 2) {
             $user = $this->usersAndroidRepository->findOneBy([
-                'deviceId' => $deviceId
+                'id' => $id
             ]);
             
             if ($user) {

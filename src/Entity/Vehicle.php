@@ -43,10 +43,6 @@ class Vehicle
      */
     private $vehicleName;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UsersAndroid", inversedBy="vehicle")
-     */
-    private $user;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -58,8 +54,13 @@ class Vehicle
      */
     private $tickets;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UsersAnd", inversedBy="vehicles")
+     */
+    private $user;
+
     public function __construct()
-    { 
+    {
         $this->tickets = new ArrayCollection();
     }
 
@@ -128,18 +129,6 @@ class Vehicle
         return $this;
     } 
 
-    public function getUser(): ?UsersAndroid
-    {
-        return $this->user;
-    }
-
-    public function setUser(?UsersAndroid $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getUserOs(): ?int
     {
         return $this->user_os;
@@ -182,4 +171,17 @@ class Vehicle
 
         return $this;
     }
+
+    public function getUser(): ?UsersAnd
+    {
+        return $this->user;
+    }
+
+    public function setUser(?UsersAnd $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 }

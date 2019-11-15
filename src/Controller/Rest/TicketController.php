@@ -25,17 +25,17 @@ class TicketController extends FOSRestController
     }
     
     /**
-     * Check for tickets
+     * Check for tickets 
      * @Rest\Get("/tickets")
      */ 
     public function checkViolations(Request $request): View
     {
-        $deviceId = $request->get('device_id');
+        $id = $request->get('user_id');
         $type = $request->get('type');
         $vehicleNumber = $request->get('vehicle_number');
         $vehicleCode = $request->get('vehicle_code');
 
-        $checker = $this->checkerService->checker($deviceId, $type);
+        $checker = $this->checkerService->checker($id, $type);
 
         $results = array();
         if ($checker['status']) {

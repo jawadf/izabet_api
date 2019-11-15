@@ -73,15 +73,7 @@ class UsersAndroid
      */
     private $notification;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vehicle", mappedBy="userId")
-     */
-    private $vehicle;
 
-    public function __construct()
-    {
-        $this->vehicle = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -216,37 +208,6 @@ class UsersAndroid
     public function setNotification(?int $notification): self
     {
         $this->notification = $notification;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Vehicle[]
-     */
-    public function getVehicle(): Collection
-    {
-        return $this->vehicle;
-    }
-
-    public function addVehicle(Vehicle $vehicle): self
-    {
-        if (!$this->vehicle->contains($vehicle)) {
-            $this->vehicle[] = $vehicle;
-            $vehicle->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVehicle(Vehicle $vehicle): self
-    {
-        if ($this->vehicle->contains($vehicle)) {
-            $this->vehicle->removeElement($vehicle);
-            // set the owning side to null (unless already changed)
-            if ($vehicle->getUserId() === $this) {
-                $vehicle->setUserId(null);
-            }
-        }
 
         return $this;
     }
